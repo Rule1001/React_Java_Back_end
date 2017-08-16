@@ -15,6 +15,15 @@ public class Property {
     private String location = null;
     private boolean forSale = false;
 
- 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(name ="property_id")
+    public Long getPropertyId() {
+        return propertyId;
+    }
+    public void setPropertyId(Long propertyId){
+        this.propertyId=propertyId;
+    }
 
 }
