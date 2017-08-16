@@ -34,6 +34,16 @@ public class Property {
     public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
+
+    @Column(name ="bedrooms")
+    @Min(value = 1, message = "The bedrooms should be at least 1")
+    @Max(value = 10, message = "The bedrooms can not be more than 10")
+    public int getNumBedrooms() {
+        return bedrooms;
+    }
+    public void setNumBedrooms(int bedrooms) {
+        this.bedrooms = bedrooms;
+    }
     
 
 }
