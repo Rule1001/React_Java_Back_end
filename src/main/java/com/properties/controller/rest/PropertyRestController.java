@@ -28,5 +28,11 @@ public class PropertyRestController {
 
         return property;
     }
-    
+
+    @CrossOrigin("*")
+    @RequestMapping(value="/properties/{propertyId}", method = RequestMethod.POST)
+    public void saveProperty(@Valid @RequestBody Property property) {
+
+        propertyRepository.save(property);
+    }
 }
