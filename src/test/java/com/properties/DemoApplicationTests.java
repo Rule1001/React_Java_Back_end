@@ -1,4 +1,4 @@
-package com.propertiess;
+package com.properties;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
