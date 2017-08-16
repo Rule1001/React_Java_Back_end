@@ -44,6 +44,14 @@ public class Property {
     public void setNumBedrooms(int bedrooms) {
         this.bedrooms = bedrooms;
     }
-    
+
+    @Column(name ="location")
+    @NotEmpty (message = "You must specify a Location")
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
 }
