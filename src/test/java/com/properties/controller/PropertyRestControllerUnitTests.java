@@ -20,6 +20,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = PropertyRestController.class)
@@ -49,6 +53,41 @@ public class PropertyRestControllerUnitTests {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         String expected = "{propertyId:1, propertyType:House, numBedrooms:3, location:Sale}";
+
+        System.out.println(result.getResponse().getContentAsString());
+
+        JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+
+    }
+
+    @Test
+    public void showAllProperties() throws Exception {
+
+        Property property1 = new Property();
+        property1.setPropertyId(1L);
+        property1.setPropertyType("House");
+        property1.setNumBedrooms(3);
+        property1.setLocation("Sale");
+
+        Property property2 = new Property();
+        property2.setPropertyId(2L);
+        property2.setPropertyType("Apartment");
+        property2.setNumBedrooms(1);
+        property2.setLocation("Manchester");
+
+        List<Property> property = new ArrayList<Property>();
+
+        property.add(property1);
+        property.add(property2);
+
+
+        Mockito.when(propertyRepository.findAll()).thenReturn(property);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/properties").accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        String expected = "[{\"propertyId\":1,\"propertyType\":\"House\",\"location\":\"Sale\",\"numBedrooms\":3},{\"propertyId\":2,\"propertyType\":\"Apartment\",\"location\":\"Manchester\",\"numBedrooms\":1}]";
 
         System.out.println(result.getResponse().getContentAsString());
 
