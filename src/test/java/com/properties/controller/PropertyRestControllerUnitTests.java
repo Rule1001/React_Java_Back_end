@@ -1,9 +1,11 @@
 package com.properties.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.properties.controller.rest.PropertyRestController;
 import com.properties.model.Property;
 import com.properties.repository.PropertyRepository;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -52,18 +54,26 @@ public class PropertyRestControllerUnitTests {
 
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 
-
-
-
-
-
-
-
-
-
     }
 
+    @Test
+    public void saveProperty() throws Exception {
+        Property property = new Property();
+        property.setPropertyId(1L);
+        property.setPropertyType("House");
+        property.setNumBedrooms(3);
+        property.setLocation("Sale");
 
+        String carJson = new ObjectMapper().writeValueAsString(property);
 
+        Mockito.when(propertyRepository.save(property)).thenReturn(property);
 
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/properties/-1").contentType(MediaType.APPLICATION_JSON).content(carJson);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        Mockito.verify(propertyRepository, Mockito.times(1)).save(Mockito.any(Property.class));
+        Assert.assertEquals(200, result.getResponse().getStatus());
+    }
 }
+
