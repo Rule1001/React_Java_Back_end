@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -31,8 +32,27 @@ public class PropertyRestController {
 
     @CrossOrigin("*")
     @RequestMapping(value="/properties/{propertyId}", method = RequestMethod.POST)
-    public void saveProperty(@Valid @RequestBody Property property) {
+    public void saveProperty(@Valid @RequestBody Property property, HttpServletResponse response ) {
 
         propertyRepository.save(property);
+        response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
+
+    @CrossOrigin("*")
+    @RequestMapping(value = "/properties/{propertyId}", method = RequestMethod.DELETE)
+    public void deleteProperty(@PathVariable Long propertyId, HttpServletResponse response) {
+        System.out.println("Fetching & Deleting Property with propertyId " + propertyId);
+
+        Property property = propertyRepository.findOne(propertyId);
+        if (property == null) {
+            System.out.println("Unable to delete. Property with propertyID " + propertyId + " not found");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+
+        } else {
+            propertyRepository.delete(property);
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+        }
+    }
+
 }
