@@ -55,4 +55,12 @@ public class PropertyRestController {
         }
     }
 
+    @CrossOrigin("*")
+    @RequestMapping(value = "/properties", method = RequestMethod.DELETE)
+    public void deleteAllProperties() {
+        System.out.println("Deleting All Users");
+
+        propertyRepository.deleteAll();
+    }
+
 }
