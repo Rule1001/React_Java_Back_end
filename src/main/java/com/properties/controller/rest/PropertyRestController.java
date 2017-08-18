@@ -18,10 +18,12 @@ public class PropertyRestController {
     @Autowired
     protected PropertyRepository propertyRepository;
 
+    //get all properties
     @CrossOrigin("*")
     @RequestMapping(value="/properties", method = RequestMethod.GET)
     public List<Property> getAllProperties() { return (List<Property>)propertyRepository.findAll(); }
 
+    //get a property
     @CrossOrigin("*")
     @RequestMapping(value="/properties/{propertyId}", method = RequestMethod.GET)
     public Property getIndividulaProperty(@PathVariable Long propertyId) {
@@ -30,6 +32,7 @@ public class PropertyRestController {
         return property;
     }
 
+    //add a property
     @CrossOrigin("*")
     @RequestMapping(value="/properties/{propertyId}", method = RequestMethod.POST)
     public void saveProperty(@Valid @RequestBody Property property, HttpServletResponse response ) {
@@ -38,6 +41,7 @@ public class PropertyRestController {
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 
+    //delete a property
     @CrossOrigin("*")
     @RequestMapping(value = "/properties/{propertyId}", method = RequestMethod.DELETE)
     public void deleteProperty(@PathVariable Long propertyId, HttpServletResponse response) {
@@ -54,7 +58,7 @@ public class PropertyRestController {
 
         }
     }
-
+    //delete all properties
     @CrossOrigin("*")
     @RequestMapping(value = "/properties", method = RequestMethod.DELETE)
     public void deleteAllProperties() {
@@ -62,5 +66,29 @@ public class PropertyRestController {
 
         propertyRepository.deleteAll();
     }
+
+    //update property
+    @CrossOrigin("*")
+    @RequestMapping(value = "/properties/{propertyId}", method = RequestMethod.PUT)
+    public void updateProperty(@PathVariable Long propertyId, @RequestBody Property property, HttpServletResponse response) {
+        System.out.println("Updating Property " + propertyId);
+
+        propertyRepository.findOne(propertyId);
+
+        if (property==null) {
+            System.out.println("Property with id " + propertyId + " not found");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
+        property.setPropertyId(property.getPropertyId());
+        property.setPropertyType(property.getPropertyType());
+        property.setLocation(property.getLocation());
+        property.setNumBedrooms(property.getNumBedrooms());
+
+        propertyRepository.save(property);
+        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+    }
+
+
 
 }
