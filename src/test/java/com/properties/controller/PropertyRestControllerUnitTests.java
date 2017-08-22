@@ -114,5 +114,32 @@ public class PropertyRestControllerUnitTests {
         Mockito.verify(propertyRepository, Mockito.times(1)).save(Mockito.any(Property.class));
         Assert.assertEquals(200, result.getResponse().getStatus());
     }
+
+//    @Test
+//    public void deleteProperty() throws Exception {
+//        Property property1 = new Property();
+//        property1.setPropertyId(1L);
+//        property1.setPropertyType("House");
+//        property1.setNumBedrooms(3);
+//        property1.setLocation("Sale");
+//
+//        Property property2 = new Property();
+//        property2.setPropertyId(2L);
+//        property2.setPropertyType("Apartment");
+//        property2.setNumBedrooms(1);
+//        property2.setLocation("Manchester");
+//
+//        Mockito.when(propertyRepository.delete(property1));
+//
+//        propertyRepository();
+//        Person person = new Person(1L);
+//        Person person2 = new Person(1L);
+//
+//        when(personRepository.returnPerson(1L)).thenReturn(person2); //expect a fetch, return a "fetched" person;
+//
+//        personService.deleteFromPerson(person);
+//
+//        verify(personRepository, times(1)).delete(person2); //pretty sure it is verify after call
+//    }
 }
 
