@@ -22,14 +22,14 @@ node {
          } else {
             bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
          }
-      }ß
+      }
        stage('test') {
                // Run the maven build
-               if (isUnix()) {
-                  sh "mvn -Dmaven.test.failure.ignore test"
-               } else {
-                  bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-               }
-            }
+          if (isUnix()) {
+              sh "mvn -Dmaven.test.failure.ignore test"
+          } else {
+              bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+          }
+       }
 
 }
