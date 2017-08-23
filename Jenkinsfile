@@ -12,4 +12,8 @@ node {
    stage('Docker Build') {
       sh "docker build -t myapp ."
    }
+   stage('Docker Deploy') {
+      sh "docker run -d -p 8081:9090 myproperties"
+   }
+
 }

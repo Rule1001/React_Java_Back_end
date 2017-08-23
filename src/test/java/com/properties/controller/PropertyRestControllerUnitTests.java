@@ -112,7 +112,7 @@ public class PropertyRestControllerUnitTests {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         Mockito.verify(propertyRepository, Mockito.times(1)).save(Mockito.any(Property.class));
-        Assert.assertEquals(200, result.getResponse().getStatus());
+        Assert.assertEquals(202, result.getResponse().getStatus());
     }
 
 //    @Test
