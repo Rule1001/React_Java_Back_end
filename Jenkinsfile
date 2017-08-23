@@ -16,8 +16,14 @@ node {
    stage('Docker Build') {
       sh "docker build -t myproperties ."
    }
+
+   stage('Stop app') {
+      sh "docker stop myproperties || true"
+      sh "docker rm myproperties || true"
+   }
+
    stage('Docker Deploy') {
-      sh "docker run -d -p --8081:9090 myproperties"
+      sh "docker run -d --name myproperties -p 8081:9090 myproperties"
    }
 
 }
