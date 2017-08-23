@@ -55,10 +55,6 @@ node {
        }
 
        stage('Docker Build') {
-       if (isUnix()) {
-       sh "docker build -t myproperties ."
-       } else {
-             bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-       }
-    }
+            sh "docker build -t myapp ."
+   }
 }
