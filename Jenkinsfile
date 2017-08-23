@@ -1,4 +1,8 @@
 node {
+
+   stage('Slack started') {
+      slackSend channel: "#northcoders-java", message: "The Empire is Forming"
+   }
    stage('Preparation') {
       git 'https://github.com/Rule1001/React_Java_Back_end.git'
    }
@@ -13,7 +17,7 @@ node {
       sh "docker build -t myproperties ."
    }
    stage('Docker Deploy') {
-      sh "docker run -d -p 8081:9090 myproperties"
+      sh "docker run -d -p --8081:9090 myproperties"
    }
 
 }
