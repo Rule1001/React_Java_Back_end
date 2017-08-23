@@ -1,7 +1,7 @@
 node {
 
    stage('Slack started') {
-      slackSend channel: "#northcoders-java", message: "The Empire is Forming"
+      slackSend channel: "#northcoders-java", message: "The database to the empire is close.......very close"
    }
    stage('Preparation') {
       git 'https://github.com/Rule1001/React_Java_Back_end.git'
@@ -26,5 +26,7 @@ node {
       sh "docker run -d --name myproperties -p 8081:9090 myproperties -v properties:/var/lib/mysql"
 
    }
-
+    stage('Docker start') {
+    sh "docker start myproperties"
+    }
 }
