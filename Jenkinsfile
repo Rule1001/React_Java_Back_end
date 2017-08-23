@@ -1,6 +1,6 @@
 node {
    stage('Preparation') {
-      git 'https://github.com/eggsy84/mybackend-app.git'
+      git 'https://github.com/Rule1001/React_Java_Back_end.git'
    }
    stage('Clean') {
       sh "mvn -Dmaven.test.failure.ignore clean"
