@@ -23,7 +23,8 @@ node {
    }
 
    stage('Docker Deploy') {
-      sh "docker run -d --name myproperties -p 8081:9090 myproperties -v properties:/var/lib/mysql \ mysql"
+      sh "docker run -d --name myproperties -p 8081:9090 myproperties -v properties:/var/lib/mysql"
+
    }
 
 }
