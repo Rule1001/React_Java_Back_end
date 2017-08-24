@@ -57,7 +57,12 @@ public class PropertyRestController {
     @RequestMapping(value="/properties/{propertyId}", method = RequestMethod.POST)
     public void saveProperty(@Valid @RequestBody Property property, HttpServletResponse response ) {
 
+        logger.debug("property add has STARTED");
+
         propertyRepository.save(property);
+
+        logger.debug("new property succesfully added");
+
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 
@@ -66,6 +71,8 @@ public class PropertyRestController {
     @RequestMapping(value = "/properties/{propertyId}", method = RequestMethod.DELETE)
     public void deleteProperty(@PathVariable Long propertyId, HttpServletResponse response) {
         System.out.println("Fetching & Deleting Property with propertyId " + propertyId);
+
+
 
         Property property = propertyRepository.findOne(propertyId);
         if (property == null) {
