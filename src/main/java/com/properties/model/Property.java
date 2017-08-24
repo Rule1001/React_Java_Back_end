@@ -54,4 +54,14 @@ public class Property {
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        return "Property{" +
+                "propertyId=" + propertyId +
+                ", propertyType='" + propertyType + '\'' +
+                ", bedrooms=" + bedrooms +
+                ", location='" + location + '\'' +
+                ", forSale=" + forSale +
+                '}';
+    }
 }

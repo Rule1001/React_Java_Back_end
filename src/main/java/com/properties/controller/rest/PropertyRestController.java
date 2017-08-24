@@ -5,7 +5,8 @@ import com.properties.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 @RestController
 public class PropertyRestController {
 
+    private final Logger logger = LoggerFactory.getLogger(PropertyRestController.class);
+
 
     @Autowired
     protected PropertyRepository propertyRepository;
@@ -21,13 +24,30 @@ public class PropertyRestController {
     //get all properties
     @CrossOrigin("*")
     @RequestMapping(value="/properties", method = RequestMethod.GET)
-    public List<Property> getAllProperties() { return (List<Property>)propertyRepository.findAll(); }
+    public List<Property> getAllProperties() {
+
+        List<Property> properties = (List<Property>)propertyRepository.findAll();
+
+        logger.debug("get all properties {}", properties);
+
+        return properties;
+
+    }
 
     //get a property
     @CrossOrigin("*")
     @RequestMapping(value="/properties/{propertyId}", method = RequestMethod.GET)
     public Property getIndividulaProperty(@PathVariable Long propertyId) {
+
+        logger.debug("get individual property STARTED");
+
         Property property = propertyRepository.findOne(propertyId);
+
+        if(property == null) {
+            logger.warn("property {} does not exist", propertyId);
+        }
+
+        logger.debug("get individual property ENDED", propertyId);
 
         return property;
     }
