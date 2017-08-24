@@ -47,7 +47,7 @@ public class PropertyRestController {
             logger.warn("property {} does not exist", propertyId);
         }
 
-        logger.debug("get individual property ENDED", propertyId);
+        logger.debug("get individual property ENDED");
 
         return property;
     }
@@ -70,17 +70,17 @@ public class PropertyRestController {
     @CrossOrigin("*")
     @RequestMapping(value = "/properties/{propertyId}", method = RequestMethod.DELETE)
     public void deleteProperty(@PathVariable Long propertyId, HttpServletResponse response) {
-        System.out.println("Fetching & Deleting Property with propertyId " + propertyId);
 
-
+        logger.debug("Fetching & Deleting Property with propertyId {}", propertyId);
 
         Property property = propertyRepository.findOne(propertyId);
         if (property == null) {
-            System.out.println("Unable to delete. Property with propertyID " + propertyId + " not found");
+            logger.debug("Unable to delete. Property with propertyID {} not found", propertyId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 
         } else {
             propertyRepository.delete(property);
+            logger.debug("property deleted");
             response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
         }
