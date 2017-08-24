@@ -89,21 +89,23 @@ public class PropertyRestController {
     @CrossOrigin("*")
     @RequestMapping(value = "/properties", method = RequestMethod.DELETE)
     public void deleteAllProperties() {
-        System.out.println("Deleting All Users");
+        logger.debug("Starting deleting all properties");
 
         propertyRepository.deleteAll();
+        logger.debug("All properties deleted");
     }
 
     //update property
     @CrossOrigin("*")
     @RequestMapping(value = "/properties/{propertyId}", method = RequestMethod.PUT)
     public void updateProperty(@PathVariable Long propertyId, @RequestBody Property property, HttpServletResponse response) {
-        System.out.println("Updating Property " + propertyId);
+
+        logger.debug("updating property {}", propertyId);
 
         propertyRepository.findOne(propertyId);
 
         if (property==null) {
-            System.out.println("Property with id " + propertyId + " not found");
+            logger.debug("property with id {} not found", propertyId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
 
@@ -113,9 +115,8 @@ public class PropertyRestController {
         property.setNumBedrooms(property.getNumBedrooms());
 
         propertyRepository.save(property);
+        logger.debug("property with id {} updated", propertyId);
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
-
-
 
 }
